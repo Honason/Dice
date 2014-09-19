@@ -81,7 +81,7 @@ public class Bet {
         slider.setMajorTickSpacing(10);
         slider.setSnapToTicks(true);
         slider.setMinimum(0);
-        slider.setMaximum(liveScore);
+        slider.setMaximum(Player.getBank());
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
         slider.setValue(0);
