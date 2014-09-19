@@ -12,7 +12,7 @@ public class GameEngine {
     	int[] min = {0,1000}; //Face, Count
     	for (int i = 0; i < rolls.length ; i++) {
     			if(rolls[i][1] > max[1]) max[0] = rolls[i][0];
-    			if(rolls[i][1] < min[1]) min[0] = rolls[i][0];
+    			if(rolls[i][1] < min[1] && rolls[i][1] > 0) min[0] = rolls[i][0];
     	}
     	String infoMessage = "Final score:" + Player.getBank() + "\n" +
     	"You played " + (games[0] + games[1]) + " games with a win ratio of " + Player.getWinRate() + " (W" + games[0] + "/L" + games[1] + ")\n" + 
