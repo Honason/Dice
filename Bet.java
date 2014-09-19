@@ -7,8 +7,12 @@ import java.util.ArrayList;
 
 public class Bet {
     public static int liveScore = Player.getBank();
+    public static int[] turnData = new int[6];
 
     public static int main(int[] thrown) {
+        turnData[0] = thrown[0];
+        turnData[1] = thrown[1];
+
         int thrownSum = thrown[0]+thrown[1];
         String answer = "";
         ArrayList<String> list = new ArrayList<String>();
@@ -19,6 +23,7 @@ public class Bet {
             }            
         }
         System.out.println(answer);
+
         String[] choices = list.toArray(new String[list.size()]);
 
         JOptionPane optionPane = new JOptionPane();
@@ -39,6 +44,11 @@ public class Bet {
                 choices[0]); // Initial choice
         //System.out.println(input.equals(answer));
 
+        String[] bets = input.split(" and ");
+        turnData[2] = Integer.parseInt(bets[0]);
+        turnData[3] = Integer.parseInt(bets[1]);
+        turnData[4] = myBet;
+
         if (input.equals(answer)) {
             if (thrownSum==2 || thrownSum==3 || thrownSum==11 || thrownSum==12) {
                 double temp = (myBet*1.5);
@@ -51,6 +61,8 @@ public class Bet {
         } else {
             myBet = myBet * (-1);
         }
+
+        turnData[5] = myBet;
 
         return myBet;
     }
@@ -77,5 +89,10 @@ public class Bet {
         };
         slider.addChangeListener(changeListener);
         return slider;
+    }
+
+    public static int[] getData() {
+        // 1. and 2.: Dice face values, 3.and 4. Guesses, 5. Amount we have bet, 6. is reward.
+        return turnData;
     }
 }
