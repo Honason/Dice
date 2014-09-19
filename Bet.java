@@ -91,8 +91,5 @@ public class Bet {
         return slider;
     }
 
-    public static int[] getData() {
-        // 1. and 2.: Dice face values, 3.and 4. Guesses, 5. Amount we have bet, 6. is reward.
-        return turnData;
-    }
+    // 1. and 2.: Dice face values, 3.and 4. Guesses, 5. Amount we have bet, 6. is reward.
 }
