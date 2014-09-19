@@ -1,5 +1,6 @@
 package dice;
 import java.util.Arrays;
+import javax.swing.*;
 
 public class GameTurn {
     public static void main() {
@@ -9,7 +10,14 @@ public class GameTurn {
         // Calling class Bet and setting parameter which is thrown sum.
         Player.changeBank(Bet.main(thrown));
         System.out.println(Player.getBank());
-
-        System.out.println(Bet.turnData[0] + " " + Bet.turnData[1] + " " + Bet.turnData[2] + " " + Bet.turnData[3] + " " + Bet.turnData[4] + " " + Bet.turnData[5] + " ");
+        String winLose, loseMessage = "";
+        if(Bet.turnData[5] > 0)  winLose = "You won " + Bet.turnData[5];
+        else {
+        	winLose = "You lost " + Bet.turnData[5];
+        	loseMessage = "\nYou guessed " + Bet.turnData[2] + " and " + Bet.turnData[3] + " but the right answer was " + Bet.turnData[0] + " and " + Bet.turnData[1] + "\nBetter luck next time!";
+        }
+    	String infoMessage = winLose + "\n" + 
+    		"Your score is now " + Player.getBank() + loseMessage;
+    	JOptionPane.showMessageDialog(null, infoMessage, "Game Statistics", JOptionPane.INFORMATION_MESSAGE);
     }
 }
