@@ -13,6 +13,8 @@ public class Bet {
         turnData[0] = thrown[0];
         turnData[1] = thrown[1];
 
+        Player.addRolls(thrown);
+
         int thrownSum = thrown[0]+thrown[1];
         String answer = "";
         ArrayList<String> list = new ArrayList<String>();
@@ -43,10 +45,14 @@ public class Bet {
                 choices, // Array of choices
                 choices[0]); // Initial choice
         //System.out.println(input.equals(answer));
+        Player.addGameWin(input.equals(answer));
 
         String[] bets = input.split(" and ");
         turnData[2] = Integer.parseInt(bets[0]);
         turnData[3] = Integer.parseInt(bets[1]);
+
+        Player.addBet(myBet);
+
         turnData[4] = myBet;
 
         if (input.equals(answer)) {
@@ -63,6 +69,7 @@ public class Bet {
         }
 
         turnData[5] = myBet;
+        Player.addReward(myBet);
 
         return myBet;
     }
@@ -90,4 +97,9 @@ public class Bet {
         slider.addChangeListener(changeListener);
         return slider;
     }
+<<<<<<< HEAD
+=======
+
+    // 1. and 2.: Dice face values, 3.and 4. Guesses, 5. Amount we have bet, 6. is reward.
+>>>>>>> origin/master
 }
