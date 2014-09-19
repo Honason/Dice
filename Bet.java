@@ -44,7 +44,6 @@ public class Bet {
                 // icon
                 choices, // Array of choices
                 choices[0]); // Initial choice
-        //System.out.println(input.equals(answer));
         Player.addGameWin(input.equals(answer));
 
         String[] bets = input.split(" and ");
