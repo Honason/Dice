@@ -6,6 +6,7 @@ public class Player {
 	public static int bank = 100;
 	public static int averageRoll = 0;
 	public static int averageBet = 0;
+	public static int averageReward = 0;
 	public static int[][] distrRoll = {
 		{1,0},
 		{2,0},
@@ -17,6 +18,7 @@ public class Player {
 	public static int[] winLoses = {0,0};  // Win Count, Lose Count
 	public static ArrayList<Integer> diceRolls = new ArrayList<Integer>();
 	public static ArrayList<Integer> bets = new ArrayList<Integer>();
+	public static ArrayList<Integer> rewards = new ArrayList<Integer>();
 
 	public static void main() {
 		
@@ -59,6 +61,18 @@ public class Player {
 	}
 	public static int getAveBet() {
 		return averageBet;
+	}
+	public static void addReward(int reward) {
+		rewards.add(reward);
+		int sum = 0;
+		for (int d : rewards) sum += d;
+			averageReward = sum / rewards.size();
+	}
+	public static int[] getRewards() {
+		return listToArray(rewards);
+	}
+	public static int getAveReward() {
+		return averageReward;
 	}
 	public static void addGameWin(boolean tsmwonnered) {
 		if(tsmwonnered) winLoses[0]++;
