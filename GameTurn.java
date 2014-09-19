@@ -7,6 +7,6 @@ public class GameTurn {
         thrown = Die.main();
 
         // Calling class Bet and setting parameter which is thrown sum.
-        Bet.main(thrown[0]+thrown[1]);
+        System.out.println(Bet.main(thrown));
     }
 }

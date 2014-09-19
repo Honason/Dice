@@ -9,8 +9,8 @@ public class Die {
 
         Random rand = new Random();
         int number[] = new int[2];
-        number[0] = rand.nextInt((6 - 1) + 1) + 1;
-        number[1] = rand.nextInt((6 - 1) + 1) + 1;
+        number[0] = rand.nextInt(6) + 1;
+        number[1] = rand.nextInt(6) + 1;
         return number;
     }
 }
