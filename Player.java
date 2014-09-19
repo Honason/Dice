@@ -42,7 +42,7 @@ public class Player {
 	public static int[] getRolls() {
 		return listToArray(diceRolls);
 	}
-	public static int getAveRolls() {
+	public static int getAveRoll() {
 		return averageRoll;
 	}
 	public static int[][] getDistrRolls() {
@@ -57,7 +57,7 @@ public class Player {
 	public static int[] getBets() {
 		return listToArray(bets);
 	}
-	public static int getAveBets() {
+	public static int getAveBet() {
 		return averageBet;
 	}
 	public static void addGameWin(boolean tsmwonnered) {
