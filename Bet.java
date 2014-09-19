@@ -6,7 +6,7 @@ import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
 
 public class Bet {
-    public static int liveScore = 66;
+    public static int liveScore = Player.getBank();
 
     public static int main(int[] thrown) {
         int thrownSum = thrown[0]+thrown[1];
@@ -65,6 +65,8 @@ public class Bet {
         slider.setMaximum(liveScore);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
+        slider.setValue(0);
+        optionPane.setInputValue(0);
         ChangeListener changeListener = new ChangeListener() {
             public void stateChanged(ChangeEvent changeEvent) {
                 JSlider theSlider = (JSlider) changeEvent.getSource();

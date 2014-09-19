@@ -27,6 +27,7 @@ public class GameTurn {
 
 
         // Calling class Bet and setting parameter which is thrown sum.
-        System.out.println(Bet.main(thrown));
+        Player.changeBank(Bet.main(thrown));
+        System.out.println(Player.getBank());
     }
 }
