@@ -76,12 +76,14 @@ public class Bet {
 
     static JSlider getSlider(final JOptionPane optionPane) {
 
+        int bank = Player.getBank();
+
         JSlider slider = new JSlider();
-        slider.setMinorTickSpacing(5);
-        slider.setMajorTickSpacing(10);
+        slider.setMinorTickSpacing(bank/20);
+        slider.setMajorTickSpacing(bank/10);
         slider.setSnapToTicks(true);
         slider.setMinimum(0);
-        slider.setMaximum(Player.getBank());
+        slider.setMaximum(bank);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
         slider.setValue(0);
