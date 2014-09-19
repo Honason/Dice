@@ -1,9 +1,13 @@
 package dice;
 
 import javax.swing.*;
-import java.util.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.util.ArrayList;
 
 public class Bet {
+    public static int liveScore = 66;
+
     public static int main(int[] thrown) {
         int thrownSum = thrown[0]+thrown[1];
         String answer = "";
@@ -17,14 +21,59 @@ public class Bet {
         System.out.println(answer);
         String[] choices = list.toArray(new String[list.size()]);
 
-        String input = (String) JOptionPane.showInputDialog(null, "The sum of thrown dices is " + thrownSum + ". What values were there?",
+        JOptionPane optionPane = new JOptionPane();
+        JSlider slider = getSlider(optionPane);
+        optionPane.setMessage(new Object[] { "The sum of dice faces is " + thrownSum + ". What is your bet?", slider });
+        optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
+        optionPane.setOptionType(JOptionPane.OK_CANCEL_OPTION);
+        JDialog dialog = optionPane.createDialog(null, "My Slider");
+        dialog.setVisible(true);
+        int myBet = (Integer) optionPane.getInputValue();
+        dialog.dispose();
+
+        String input = (String) JOptionPane.showInputDialog(null, "What values are there?",
                 "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
                 // default
                 // icon
                 choices, // Array of choices
                 choices[0]); // Initial choice
-        System.out.println(input.equals(answer));
+        //System.out.println(input.equals(answer));
 
-        return 10;
+        if (input.equals(answer)) {
+            if (thrownSum==2 || thrownSum==3 || thrownSum==11 || thrownSum==12) {
+                double temp = (myBet*1.5);
+                myBet = (int) temp;
+            } else if (thrownSum==4 || thrownSum==5 || thrownSum==9 || thrownSum==10) {
+                myBet = myBet*2;
+            } else if (thrownSum==6 || thrownSum==7 || thrownSum==8) {
+                myBet = myBet*3;
+            }
+        } else {
+            myBet = myBet * (-1);
+        }
+
+        return myBet;
+    }
+
+    static JSlider getSlider(final JOptionPane optionPane) {
+
+        JSlider slider = new JSlider();
+        slider.setMinorTickSpacing(5);
+        slider.setMajorTickSpacing(10);
+        slider.setSnapToTicks(true);
+        slider.setMinimum(0);
+        slider.setMaximum(liveScore);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        ChangeListener changeListener = new ChangeListener() {
+            public void stateChanged(ChangeEvent changeEvent) {
+                JSlider theSlider = (JSlider) changeEvent.getSource();
+                if (!theSlider.getValueIsAdjusting()) {
+                    optionPane.setInputValue(new Integer(theSlider.getValue()));
+                }
+            }
+        };
+        slider.addChangeListener(changeListener);
+        return slider;
     }
 }
