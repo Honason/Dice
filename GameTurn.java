@@ -5,6 +5,8 @@ public class GameTurn {
     public void main() {
         // Get random dice values
         Player player = GameEngine.activePlayer;
+        GameMain.userInterface.returnPlayer();
+        GameMain.userInterface.setMySlider();
         
         int[] thrown = new int[2];
         Die dice = new Die();

@@ -12,7 +12,6 @@ public class GameEngine {
             "Enter the number of players",
             JOptionPane.PLAIN_MESSAGE);
         int playerCount = Integer.parseInt(playerCountS);
-        GUI userInterface = new GUI();
         for (int i = 0;i < playerCount ; i++) {
             Players.add(new Player(i));
             System.out.println(Players.get(i).getBank());
@@ -22,6 +21,7 @@ public class GameEngine {
     	while(playersAlive()) {
             for (int i = 0; i < playerCount; i++) {
                 activePlayer = Players.get(i);
+
                 gTurn.main();
             }
     	}
