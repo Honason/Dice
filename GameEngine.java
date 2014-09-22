@@ -4,6 +4,7 @@ import javax.swing.*;
 
 public class GameEngine {
     public static ArrayList<Player> Players = new ArrayList<Player>();
+    public static int playerCount = 0;
     public static Player activePlayer;
     public void main() {
         GameTurn gTurn = new GameTurn();
@@ -11,7 +12,7 @@ public class GameEngine {
             null,
             "Enter the number of players",
             JOptionPane.PLAIN_MESSAGE);
-        int playerCount = Integer.parseInt(playerCountS);
+        playerCount = Integer.parseInt(playerCountS);
         for (int i = 0;i < playerCount ; i++) {
             Players.add(new Player(i));
             System.out.println(Players.get(i).getBank());
@@ -19,10 +20,7 @@ public class GameEngine {
         System.out.println("PlayerCount " + playerCount);
 
     	while(playersAlive()) {
-            for (int i = 0; i < playerCount; i++) {
-                activePlayer = Players.get(i);
-                gTurn.main();
-            }
+            gTurn.main();
     	}
         for (int i = 0; i < playerCount ; i++) {
             Player player = Players.get(i);
