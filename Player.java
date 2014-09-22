@@ -3,11 +3,12 @@ import java.util.*;
 import java.text.*;
 
 public class Player {
-	public static int bank = 100;
-	public static int averageRoll = 0;
-	public static int averageBet = 0;
-	public static int averageReward = 0;
-	public static int[][] distrRoll = {
+	public int playerIndex = 0;
+	public int bank = 100;
+	public int averageRoll = 0;
+	public int averageBet = 0;
+	public int averageReward = 0;
+	public int[][] distrRoll = {
 		{1,0},
 		{2,0},
 		{3,0},
@@ -15,21 +16,24 @@ public class Player {
 		{5,0},
 		{6,0}
 	};
-	public static int[] winLoses = {0,0};  // Win Count, Lose Count
-	public static ArrayList<Integer> diceRolls = new ArrayList<Integer>();
-	public static ArrayList<Integer> bets = new ArrayList<Integer>();
-	public static ArrayList<Integer> rewards = new ArrayList<Integer>();
+	public int[] winLoses = {0,0};  // Win Count, Lose Count
+	public ArrayList<Integer> diceRolls = new ArrayList<Integer>();
+	public ArrayList<Integer> bets = new ArrayList<Integer>();
+	public ArrayList<Integer> rewards = new ArrayList<Integer>();
 
-	public static void main() {
-		
+	public Player(int i) {
+		playerIndex = i;
 	}
-	public static int getBank() {
+	public int getI() {
+		return playerIndex;
+	}
+	public int getBank() {
 		return bank;
 	}
-	public static void changeBank(int change) {
+	public void changeBank(int change) {
 		bank += change;
 	}
-	public static void addRolls(int[] rolls) {
+	public void addRolls(int[] rolls) {
 		for (int i = 0; i < rolls.length ; i++) {
 			diceRolls.add(rolls[i]);
 			for (int j = 0; j < distrRoll.length ; j++) {
@@ -41,53 +45,53 @@ public class Player {
 		averageRoll = sum / diceRolls.size();
 	}
 
-	public static int[] getRolls() {
+	public int[] getRolls() {
 		return listToArray(diceRolls);
 	}
-	public static int getAveRoll() {
+	public int getAveRoll() {
 		return averageRoll;
 	}
-	public static int[][] getDistrRolls() {
+	public int[][] getDistrRolls() {
 		return distrRoll;
 	}
-	public static void addBet(int bet) {
+	public void addBet(int bet) {
 		bets.add(bet);
 		int sum = 0;
 		for (int d : bets) sum += d;
 		averageBet = sum / bets.size();
 	}
-	public static int[] getBets() {
+	public int[] getBets() {
 		return listToArray(bets);
 	}
-	public static int getAveBet() {
+	public int getAveBet() {
 		return averageBet;
 	}
-	public static void addReward(int reward) {
+	public void addReward(int reward) {
 		rewards.add(reward);
 		int sum = 0;
 		for (int d : rewards) sum += d;
 			averageReward = sum / rewards.size();
 	}
-	public static int[] getRewards() {
+	public int[] getRewards() {
 		return listToArray(rewards);
 	}
-	public static int getAveReward() {
+	public int getAveReward() {
 		return averageReward;
 	}
-	public static void addGameWin(boolean tsmwonnered) {
+	public void addGameWin(boolean tsmwonnered) {
 		if(tsmwonnered) winLoses[0]++;
 		else winLoses[1]++;
 	}
-	public static int[] getWinLoses() {
+	public int[] getWinLoses() {
 		return winLoses;
 	}
-	public static String getWinRate() {
+	public String getWinRate() {
 		DecimalFormat df = new DecimalFormat("#.##"); 
 		return df.format(((double)winLoses[0] / (winLoses[0] + winLoses[1]))*100);
 	}
 
 
-	public static int[] listToArray(ArrayList<Integer> list) {
+	public int[] listToArray(ArrayList<Integer> list) {
 		int[] res = new int[list.size()];
 		Iterator<Integer> iterator = list.iterator();
 		for (int i = 0; i < res.length; i++)

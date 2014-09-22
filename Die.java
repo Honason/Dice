@@ -3,7 +3,7 @@ package dice;
 import java.util.Random;
 
 public class Die {
-    public static int[] main() {
+    public int[] main() {
 
         // Returning an array of two random number from 1 to 6.
 

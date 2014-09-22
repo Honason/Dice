@@ -6,15 +6,14 @@ import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
 
 public class Bet {
-    public static int liveScore = Player.getBank();
-    public static int[] turnData = new int[6];
+    public int liveScore = GameEngine.activePlayer.getBank();
+    public int[] turnData = new int[6];
 
-    public static int main(int[] thrown) {
+    public int main(int[] thrown) {
+        Player player = GameEngine.activePlayer;
         turnData[0] = thrown[0];
         turnData[1] = thrown[1];
-
-        Player.addRolls(thrown);
-
+        player.addRolls(thrown);
         int thrownSum = thrown[0]+thrown[1];
         String answer = "";
         ArrayList<String> list = new ArrayList<String>();
@@ -44,13 +43,13 @@ public class Bet {
                 // icon
                 choices, // Array of choices
                 choices[0]); // Initial choice
-        Player.addGameWin(input.equals(answer));
+        player.addGameWin(input.equals(answer));
 
         String[] bets = input.split(" and ");
         turnData[2] = Integer.parseInt(bets[0]);
         turnData[3] = Integer.parseInt(bets[1]);
 
-        Player.addBet(myBet);
+        player.addBet(myBet);
 
         turnData[4] = myBet;
 
@@ -68,14 +67,14 @@ public class Bet {
         }
 
         turnData[5] = myBet;
-        Player.addReward(myBet);
+        player.addReward(myBet);
 
         return myBet;
     }
 
-    static JSlider getSlider(final JOptionPane optionPane) {
+    JSlider getSlider(final JOptionPane optionPane) {
 
-        int bank = Player.getBank();
+        int bank = GameEngine.activePlayer.getBank();
 
         JSlider slider = new JSlider();
         slider.setMinorTickSpacing(bank/20);
