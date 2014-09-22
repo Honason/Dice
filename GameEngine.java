@@ -1,6 +1,6 @@
 package dice;
-import java.util.ArrayList;
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class GameEngine {
     public static ArrayList<Player> Players = new ArrayList<Player>();
@@ -12,6 +12,7 @@ public class GameEngine {
             "Enter the number of players",
             JOptionPane.PLAIN_MESSAGE);
         int playerCount = Integer.parseInt(playerCountS);
+        GUI userInterface = new GUI();
         for (int i = 0;i < playerCount ; i++) {
             Players.add(new Player(i));
             System.out.println(Players.get(i).getBank());
