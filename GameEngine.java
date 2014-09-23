@@ -6,7 +6,7 @@ public class GameEngine {
     public static ArrayList<Player> Players = new ArrayList<Player>();
     public static int playerCount = 0;
     public static Player activePlayer;
-    public void main() {
+    public void startGame() {
         GameTurn gTurn = new GameTurn();
         String playerCountS = "";
 
@@ -28,12 +28,10 @@ public class GameEngine {
 
         for (int i = 0;i < playerCount ; i++) {
             Players.add(new Player(i));
-            System.out.println(Players.get(i).getBank());
         }
-        System.out.println("PlayerCount " + playerCount);
 
         GameMain.userInterface.setVisible();
-        GameTurn.turn.main();
+        GameTurn.turn.newTurn();
     }
 
     public void theEnd() {

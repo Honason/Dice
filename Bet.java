@@ -9,9 +9,9 @@ public class Bet {
     public String[] choices;
     public String answer = "";
 
+    // Getting all possible choices, and sending them to interface.
     public void pickValues(int[] thrown) {
         Player player = GameEngine.activePlayer;
-
         myBet = thrown[2];
         player.addRolls(thrown);
         thrownSum = thrown[0]+thrown[1];
@@ -23,7 +23,7 @@ public class Bet {
                 if(i == thrown[0] && j == thrown[1]) answer = i + " and " + j;
             }
         }
-        System.out.println(answer);
+        System.out.println("Right answer is " + answer + ". For testing purpose.    ");
 
         choices = list.toArray(new String[list.size()]);
 
@@ -32,10 +32,10 @@ public class Bet {
 
     }
 
+    // Evaluating the choice, calculating reward / loss
     public void makeGuess(String guess) {
         int[] thrown = GameTurn.turn.getThrown();
         thrownSum = thrown[0]+thrown[1];
-        //myBet = GameTurn.turn.getMyBet();
         myBet = thrown[2];
 
         turnData[0] = thrown[0];

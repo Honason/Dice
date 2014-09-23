@@ -4,11 +4,8 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.Insets;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
 
 public class GUI extends JFrame {
     public int sliderValue = 0;
@@ -46,8 +43,7 @@ public class GUI extends JFrame {
         playerLabel.setText("Player " + (player.getI()+1) + ", the sum of dice faces is:");
     }
 
-
-
+    // Setting GUI for making bet.
     public void setMyBet(final int[] thrown) {
         sliderPanel.removeAll();
         buttonPanel.removeAll();
@@ -92,7 +88,6 @@ public class GUI extends JFrame {
             }
         };
 
-        System.out.println(sliderValue);
         mySlider.addChangeListener(changeListener);
 
         sliderPanel.add(mySlider);
@@ -101,29 +96,9 @@ public class GUI extends JFrame {
 
         betButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //Execute when button is pressed
-                System.out.println(sliderValue);
-
                 Bet bet = new Bet();
                 thrown[2] = sliderValue;
                 bet.pickValues(thrown);
-            }
-        });
-        betButton.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-
-            }
-
-            public void mouseExited(MouseEvent evt) {
-
-            }
-
-            public void mousePressed(MouseEvent evt) {
-                betButton.setBackground(new Color(246, 27, 27));
-            }
-
-            public void mouseReleased(MouseEvent evt) {
-
             }
         });
         buttonPanel.add(betButton);
@@ -134,8 +109,8 @@ public class GUI extends JFrame {
         rootPanel.repaint();
     }
 
+    // Setting UI for making guess.
     public void setGuess(String[] choices) {
-        questionLabel.setText("What values are there?");
         sliderPanel.removeAll();
         buttonPanel.removeAll();
 
@@ -167,6 +142,7 @@ public class GUI extends JFrame {
         buttonPanel.repaint();
     }
 
+    // Called after each turn. Result and basic stats are shown.
     public void setTurnMessage(String[] message) {
         playerLabel.setText(message[0]);
         sliderPanel.removeAll();
@@ -186,7 +162,7 @@ public class GUI extends JFrame {
         okButton.setText("OK");
         okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                GameTurn.turn.main();
+                GameTurn.turn.newTurn();
             }
         });
         rootPanel.getRootPane().setDefaultButton(okButton);
