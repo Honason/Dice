@@ -8,11 +8,24 @@ public class GameEngine {
     public static Player activePlayer;
     public void main() {
         GameTurn gTurn = new GameTurn();
-        String playerCountS = (String)JOptionPane.showInputDialog(
-            null,
-            "Enter the number of players",
-            JOptionPane.PLAIN_MESSAGE);
+        String playerCountS = "";
+
+        while (playerCount <= 0) {
+            playerCountS = (String)JOptionPane.showInputDialog(
+                    null,
+                    "Enter the number of players",
+                    "",
+                    JOptionPane.PLAIN_MESSAGE);
+
+            if (playerCountS.equals("")) {
+                playerCount = 0;
+            } else {
+                playerCount = Integer.parseInt(playerCountS);
+            }
+        }
+
         playerCount = Integer.parseInt(playerCountS);
+
         for (int i = 0;i < playerCount ; i++) {
             Players.add(new Player(i));
             System.out.println(Players.get(i).getBank());

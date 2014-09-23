@@ -38,7 +38,7 @@ public class GUI extends JFrame {
 
     public void returnPlayer() {
         Player player = GameEngine.activePlayer;
-        playerLabel.setText("Player " + player.getI() + ", the sum of dice faces is:");
+        playerLabel.setText("Player " + (player.getI()+1) + ", the sum of dice faces is:");
     }
 
 

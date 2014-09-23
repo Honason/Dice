@@ -22,7 +22,7 @@ public class GameTurn {
             GameMain.userInterface.returnPlayer();
             GameMain.userInterface.setMyGuess(thrown);
 
-            System.out.println("Player " + player.getI() + " is playing!");
+            System.out.println("Player " + (player.getI()+1) + " is playing!");
         }
     }
 
@@ -30,7 +30,7 @@ public class GameTurn {
         Player player = GameEngine.activePlayer;
 
         // Calling class Bet and setting parameter which is thrown sum.
-        System.out.println("Player " + player.getI() + " is playing!");
+        System.out.println("Player " + (player.getI()+1) + " is playing!");
 
         player.changeBank(turnData[5]-turnData[4]);
 
