@@ -35,7 +35,8 @@ public class Bet {
     public void makeGuess(String guess) {
         int[] thrown = GameTurn.turn.getThrown();
         thrownSum = thrown[0]+thrown[1];
-        myBet = GameTurn.turn.getMyBet();
+        //myBet = GameTurn.turn.getMyBet();
+        myBet = thrown[2];
 
         turnData[0] = thrown[0];
         turnData[1] = thrown[1];
@@ -48,12 +49,8 @@ public class Bet {
             }
         }
 
-        System.out.println("Guess is " + guess + " and answer is " + answer);
-
         Player player = GameEngine.activePlayer;
         player.addGameWin(guess.equals(answer));
-
-        System.out.println(answer);
 
         String[] bets = guess.split(" and ");
         turnData[2] = Integer.parseInt(bets[0]);
@@ -62,7 +59,6 @@ public class Bet {
         player.addBet(myBet);
 
         turnData[4] = myBet;
-        System.out.println("myBet is " + myBet);
 
         if (guess.equals(answer)) {
             if (thrownSum==2 || thrownSum==3 || thrownSum==11 || thrownSum==12) {
@@ -77,7 +73,6 @@ public class Bet {
             myBet = myBet * 0;
         }
 
-        System.out.println("myBet is " + myBet);
         turnData[5] = myBet;
 
         player.addReward(myBet);

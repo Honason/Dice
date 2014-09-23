@@ -20,7 +20,7 @@ public class GameTurn {
             thrown = dice.main();
 
             GameMain.userInterface.returnPlayer();
-            GameMain.userInterface.setMyGuess(thrown);
+            GameMain.userInterface.setMyBet(thrown);
 
             System.out.println("Player " + (player.getI()+1) + " is playing!");
         }
@@ -30,26 +30,29 @@ public class GameTurn {
         Player player = GameEngine.activePlayer;
 
         // Calling class Bet and setting parameter which is thrown sum.
-        System.out.println("Player " + (player.getI()+1) + " is playing!");
-
         player.changeBank(turnData[5]-turnData[4]);
 
         System.out.println(player.getBank());
-        String winLose, loseMessage = "";
-        if(turnData[5]-turnData[4] > 0)  winLose = "You won " + turnData[5];
+        String winLose, loseMessage = "", fMessage = "";
+        if(turnData[5]-turnData[4] > 0) {
+            winLose = "You won " + turnData[5];
+            fMessage = "You guessed " + turnData[2] + " and " + turnData[3] + " and you were right!";
+        }
         else if (turnData[5]-turnData[4] < 0){
             winLose = "You lost " + turnData[4];
             loseMessage = "Better luck next time!";
+            fMessage = "You guessed " + turnData[2] + " and " + turnData[3] + " but the right answer is:";
         } else {
             winLose = "You didn't bet anything! ";
         }
 
         String[] myMessage = new String[5];
-        myMessage[0] = "You guessed " + turnData[2] + " and " + turnData[3] + " but the right answer is:";
+        myMessage[0] = fMessage;
         myMessage[1] = winLose + " points and your score is now " + player.getBank() + ".";
         myMessage[2] = loseMessage;
         myMessage[3] = "" + turnData[0];
         myMessage[4] = "" + turnData[1];
+
         GameMain.userInterface.setTurnMessage(myMessage);
 
     }
