@@ -1,59 +1,70 @@
 package dice;
 
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
 
 public class Bet {
-    public int liveScore = GameEngine.activePlayer.getBank();
     public int[] turnData = new int[6];
+    public int myBet = 0;
+    public int thrownSum;
+    public String[] choices;
+    public String answer = "";
 
-    public int main(int[] thrown) {
+    public void pickValues(int[] thrown) {
         Player player = GameEngine.activePlayer;
-        turnData[0] = thrown[0];
-        turnData[1] = thrown[1];
+
+        myBet = thrown[2];
         player.addRolls(thrown);
-        int thrownSum = thrown[0]+thrown[1];
-        String answer = "";
+        thrownSum = thrown[0]+thrown[1];
+
         ArrayList<String> list = new ArrayList<String>();
         for (int i = 1; i <= 6 ; i++) {
             for (int j = 1; j <= 6 ; j++) {
                 if(i+j == thrownSum) list.add(i + " and " + j);
                 if(i == thrown[0] && j == thrown[1]) answer = i + " and " + j;
-            }            
+            }
         }
         System.out.println(answer);
 
-        String[] choices = list.toArray(new String[list.size()]);
+        choices = list.toArray(new String[list.size()]);
 
-        JOptionPane optionPane = new JOptionPane();
-        JSlider slider = getSlider(optionPane);
-        optionPane.setMessage(new Object[] { "The sum of dice faces is " + thrownSum + ". What is your bet?", slider });
-        optionPane.setMessageType(JOptionPane.QUESTION_MESSAGE);
-        optionPane.setOptionType(JOptionPane.OK_CANCEL_OPTION);
-        JDialog dialog = optionPane.createDialog(null, "My Slider");
-        dialog.setVisible(true);
-        int myBet = (Integer) optionPane.getInputValue();
-        dialog.dispose();
+        GameTurn.turn.setThrown(thrown);
+        GameMain.userInterface.setGuess(choices);
 
-        String input = (String) JOptionPane.showInputDialog(null, "What values are there?",
-                "The Choice of a Lifetime", JOptionPane.QUESTION_MESSAGE, null, // Use
-                // default
-                // icon
-                choices, // Array of choices
-                choices[0]); // Initial choice
-        player.addGameWin(input.equals(answer));
+    }
 
-        String[] bets = input.split(" and ");
+    public void makeGuess(String guess) {
+        int[] thrown = GameTurn.turn.getThrown();
+        thrownSum = thrown[0]+thrown[1];
+        myBet = GameTurn.turn.getMyBet();
+
+        turnData[0] = thrown[0];
+        turnData[1] = thrown[1];
+
+        ArrayList<String> list = new ArrayList<String>();
+        for (int i = 1; i <= 6 ; i++) {
+            for (int j = 1; j <= 6 ; j++) {
+                if(i+j == thrownSum) list.add(i + " and " + j);
+                if(i == thrown[0] && j == thrown[1]) answer = i + " and " + j;
+            }
+        }
+
+        System.out.println("Guess is " + guess + " and answer is " + answer);
+
+        Player player = GameEngine.activePlayer;
+        player.addGameWin(guess.equals(answer));
+
+        System.out.println(answer);
+
+        String[] bets = guess.split(" and ");
         turnData[2] = Integer.parseInt(bets[0]);
         turnData[3] = Integer.parseInt(bets[1]);
 
         player.addBet(myBet);
 
         turnData[4] = myBet;
+        System.out.println("myBet is " + myBet);
 
-        if (input.equals(answer)) {
+        if (guess.equals(answer)) {
             if (thrownSum==2 || thrownSum==3 || thrownSum==11 || thrownSum==12) {
                 double temp = (myBet*1.5);
                 myBet = (int) temp;
@@ -63,39 +74,16 @@ public class Bet {
                 myBet = myBet*3;
             }
         } else {
-            myBet = myBet * (-1);
+            myBet = myBet * 0;
         }
 
+        System.out.println("myBet is " + myBet);
         turnData[5] = myBet;
+
         player.addReward(myBet);
 
-        return myBet;
-    }
-
-    JSlider getSlider(final JOptionPane optionPane) {
-
-        int bank = GameEngine.activePlayer.getBank();
-
-        JSlider slider = new JSlider();
-        slider.setMinorTickSpacing(bank/20);
-        slider.setMajorTickSpacing(bank/10);
-        slider.setSnapToTicks(true);
-        slider.setMinimum(0);
-        slider.setMaximum(bank);
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
-        slider.setValue(0);
-        optionPane.setInputValue(0);
-        ChangeListener changeListener = new ChangeListener() {
-            public void stateChanged(ChangeEvent changeEvent) {
-                JSlider theSlider = (JSlider) changeEvent.getSource();
-                if (!theSlider.getValueIsAdjusting()) {
-                    optionPane.setInputValue(new Integer(theSlider.getValue()));
-                }
-            }
-        };
-        slider.addChangeListener(changeListener);
-        return slider;
+        GameTurn turn = new GameTurn();
+        turn.getBet(turnData);
     }
     
     // 1. and 2.: Dice face values, 3.and 4. Guesses, 5. Amount we have bet, 6. is reward.

@@ -1,6 +1,6 @@
 package dice;
-import java.util.ArrayList;
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class GameEngine {
     public static ArrayList<Player> Players = new ArrayList<Player>();
@@ -19,9 +19,10 @@ public class GameEngine {
         }
         System.out.println("PlayerCount " + playerCount);
 
-    	while(playersAlive()) {
-            gTurn.main();
-    	}
+        GameTurn.turn.main();
+    }
+
+    public void theEnd() {
         for (int i = 0; i < playerCount ; i++) {
             Player player = Players.get(i);
             int[] games = player.getWinLoses();
@@ -33,12 +34,13 @@ public class GameEngine {
                 if(rolls[j][1] < min[1] && rolls[j][1] > 0) min[0] = rolls[j][0];
             }
             String infoMessage = "Final score:" + player.getBank() + "\n" +
-            "You played " + (games[0] + games[1]) + " games with a win ratio of " + player.getWinRate() + " (W" + games[0] + "/L" + games[1] + ")\n" + 
-            "Your average bet over " + player.getBets().length + " bets was " + player.getAveBet() + "\n" + 
-            "You rolled " + max[0] + "'s the most, and " + min[0] + "'s the least with an average sum of " + player.getAveRoll();
+                    "You played " + (games[0] + games[1]) + " games with a win ratio of " + player.getWinRate() + " (W" + games[0] + "/L" + games[1] + ")\n" +
+                    "Your average bet over " + player.getBets().length + " bets was " + player.getAveBet() + "\n" +
+                    "You rolled " + max[0] + "'s the most, and " + min[0] + "'s the least with an average sum of " + player.getAveRoll();
             JOptionPane.showMessageDialog(null, infoMessage, "Game Statistics", JOptionPane.INFORMATION_MESSAGE);
         }
     }
+
     public boolean playersAlive() {
         int count = 0;
         for (int i = 0; i < Players.size() ; i++) {
