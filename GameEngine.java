@@ -19,6 +19,7 @@ public class GameEngine {
         }
         System.out.println("PlayerCount " + playerCount);
 
+        GameMain.userInterface.setVisible();
         GameTurn.turn.main();
     }
 

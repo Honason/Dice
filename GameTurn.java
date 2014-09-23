@@ -1,6 +1,4 @@
 package dice;
-import javax.swing.*;
-
 public class GameTurn {
     public static GameTurn turn = new GameTurn();
     public static int activeP = 0;
@@ -22,8 +20,7 @@ public class GameTurn {
             thrown = dice.main();
 
             GameMain.userInterface.returnPlayer();
-            GameMain.userInterface.setMySlider(thrown);
-            GameMain.userInterface.setSum(thrown[0]+thrown[1]);
+            GameMain.userInterface.setMyGuess(thrown);
 
             System.out.println("Player " + player.getI() + " is playing!");
         }
@@ -39,16 +36,22 @@ public class GameTurn {
 
         System.out.println(player.getBank());
         String winLose, loseMessage = "";
-        if(turnData[5] > 0)  winLose = "You won " + turnData[5];
-        else {
+        if(turnData[5]-turnData[4] > 0)  winLose = "You won " + turnData[5];
+        else if (turnData[5]-turnData[4] < 0){
             winLose = "You lost " + turnData[4];
-            loseMessage = "\nYou guessed " + turnData[2] + " and " + turnData[3] + " but the right answer was " + turnData[0] + " and " + turnData[1] + "\nBetter luck next time!";
+            loseMessage = "Better luck next time!";
+        } else {
+            winLose = "You didn't bet anything! ";
         }
-        String infoMessage = winLose + "\n" +
-                "Your score is now " + player.getBank() + loseMessage;
-        JOptionPane.showMessageDialog(null, infoMessage, "Game Statistics", JOptionPane.INFORMATION_MESSAGE);
 
-        GameTurn.turn.main();
+        String[] myMessage = new String[5];
+        myMessage[0] = "You guessed " + turnData[2] + " and " + turnData[3] + " but the right answer is:";
+        myMessage[1] = winLose + " points and your score is now " + player.getBank() + ".";
+        myMessage[2] = loseMessage;
+        myMessage[3] = "" + turnData[0];
+        myMessage[4] = "" + turnData[1];
+        GameMain.userInterface.setTurnMessage(myMessage);
+
     }
 
     public int[] getThrown() {
