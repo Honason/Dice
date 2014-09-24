@@ -12,7 +12,6 @@ public class GameTurn {
 
             Die dice = new Die();
             thrown = dice.main();
-            activeP = 0;
             turnOnePlayer();
 
         } else {
@@ -30,7 +29,7 @@ public class GameTurn {
         System.out.println("settings player to " + activeP);
         gEngine.activePlayer = gEngine.Players.get(activeP);
         Player player = gEngine.activePlayer;
-        activeP += 1;
+
 
         GameMain.userInterface.returnPlayer();
         GameMain.userInterface.setMyBet(thrown);

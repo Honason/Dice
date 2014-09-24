@@ -125,6 +125,7 @@ public class GUI extends JFrame {
                 //Execute when button is pressed
                 Bet bet = new Bet();
                 bet.makeGuess(String.valueOf(list.getSelectedItem()));
+                GameTurn.activeP++;
                 GameTurn.turn.turnOnePlayer();
             }
         });
