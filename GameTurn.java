@@ -28,8 +28,6 @@ public class GameTurn {
 
     public void turnOnePlayer() {
         GameEngine gEngine = new GameEngine();
-        winners.clear();
-        losers.clear();
         if (activeP >= GameEngine.playerCount) {
             int[] results = new int[GameEngine.playerCount];
             int winSum = 0;
@@ -51,6 +49,8 @@ public class GameTurn {
                 message = message + "Player " + (i+1) + " guessed " + turnData.get(i)[2] + " and " + turnData.get(i)[3] + " and bet " + turnData.get(i)[4] + " and won/lost " + (turnData.get(i)[5]-turnData.get(i)[4]) + "\n\n";
             }
             JOptionPane.showMessageDialog(null,  message, "End of turn results", JOptionPane.INFORMATION_MESSAGE);
+            winners.clear();
+            losers.clear();
             int[] playersAlive = GameEngine.playersAlive();
             if (playersAlive[0] > 1) {
                 activeP = 0;
