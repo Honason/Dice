@@ -7,7 +7,8 @@ public class GameTurn {
 
     // Instance of one game turn
     public void newTurn() {
-        if (GameEngine.playersAlive()) {
+        int[] playersAlive = GameEngine.playersAlive();
+        if (playersAlive[0] > 0) {
 
             GameEngine gEngine = new GameEngine();
             gEngine.activePlayer = gEngine.Players.get(activeP);
@@ -25,11 +26,7 @@ public class GameTurn {
             GameMain.userInterface.setMyBet(thrown);
             System.out.println("Player " + (player.getI()+1) + " is playing!");
         } else {
-            for (int i=0; i<GameEngine.playerCount; i++) {
-                if (GameEngine.Players.get(i).getBank() > 0) {
-                    GameEngine.theEnd(i);
-                }
-            }
+             GameEngine.theEnd(playersAlive[1]);
         }
     }
 

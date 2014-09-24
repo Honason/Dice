@@ -53,11 +53,16 @@ public class GameEngine {
         }
     }
 
-    public static boolean playersAlive() {
-        int count = 0;
+    public static int[] playersAlive() {
+        int[] res = {0, -1};
         for (int i = 0; i < Players.size() ; i++) {
-            if(Players.get(i).getBank() > 0) count++;
+            if(Players.get(i).getBank() > 0) {
+                res[0]++;
+                res[1] = i;
+            }
         }
-        return (count > 1);
+        if(res[0] != 1) res[1] = -1;
+        //returns alive player count and index of winner if count==1
+        return res;
     }
 }

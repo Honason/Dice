@@ -34,7 +34,8 @@ public class Player {
 		bank += change;
 	}
 	public void addRolls(int[] rolls) {
-		for (int i = 0; i < rolls.length ; i++) {
+        //Loop through two first dicerolls, discard last value which is bet
+		for (int i = 0; i < 2 ; i++) {
 			diceRolls.add(rolls[i]);
 			for (int j = 0; j < distrRoll.length ; j++) {
 				if(distrRoll[j][0] == rolls[i]) distrRoll[j][1]++;
