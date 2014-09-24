@@ -62,6 +62,7 @@ public class Bet {
         turnData[4] = myBet;
 
         if (guess.equals(answer)) {
+            GameTurn.winners.add(player.getI());
             if (thrownSum==2 || thrownSum==3 || thrownSum==11 || thrownSum==12) {
                 double temp = (myBet*1.5);
                 myBet = (int) temp;
@@ -71,12 +72,14 @@ public class Bet {
                 myBet = myBet*3;
             }
         } else {
+            GameTurn.losers.add(player.getI());
             myBet = myBet * 0;
         }
 
         turnData[5] = myBet;
-
+        GameTurn.turnData.add(turnData);
         player.addReward(myBet);
+        player.changeBank(turnData[5] - turnData[4]);
 
         /*
         GameTurn turn = new GameTurn();

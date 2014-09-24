@@ -76,6 +76,10 @@ public class Player {
 	public int[] getRewards() {
 		return listToArray(rewards);
 	}
+    public int getLastReward() {
+        int l[] = listToArray(rewards);
+        return l[l.length -1];
+    }
 	public int getAveReward() {
 		return averageReward;
 	}

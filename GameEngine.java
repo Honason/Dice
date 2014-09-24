@@ -45,7 +45,7 @@ public class GameEngine {
                 if(rolls[j][1] > max[1]) max[0] = rolls[j][0];
                 if(rolls[j][1] < min[1] && rolls[j][1] > 0) min[0] = rolls[j][0];
             }
-            String infoMessage = "Final score:" + player.getBank() + "\n" +
+            String infoMessage = "Player " + (i+1) + " Final score:" + player.getBank() + "\n" +
                     "You played " + (games[0] + games[1]) + " games with a win ratio of " + player.getWinRate() + " (W" + games[0] + "/L" + games[1] + ")\n" +
                     "Your average bet over " + player.getBets().length + " bets was " + player.getAveBet() + "\n" +
                     "You rolled " + max[0] + "'s the most, and " + min[0] + "'s the least with an average sum of " + player.getAveRoll();
