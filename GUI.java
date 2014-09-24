@@ -22,6 +22,7 @@ public class GUI extends JFrame {
     private JButton guessButton;
     private JLabel questionLabel;
     private JPanel topPanel;
+    private JPanel guessPanel;
     private JLabel dice1;
     private JLabel dice2;
 
@@ -46,6 +47,7 @@ public class GUI extends JFrame {
     // Setting GUI for making bet.
     public void setMyBet(final int[] thrown) {
         sliderPanel.removeAll();
+        guessPanel.removeAll();
         buttonPanel.removeAll();
         centerPanel.removeAll();
 
@@ -71,11 +73,13 @@ public class GUI extends JFrame {
         mySlider.setValue(0);
         mySlider.setPreferredSize(new Dimension(310, 40));
 
-        betButton = new JButton();
-        betButton.setText("Bet");
-        rootPanel.getRootPane().setDefaultButton(betButton);
-        betButton.requestFocus();
+        //betButton = new JButton();
+        //betButton.setText("Bet");
+        //rootPanel.getRootPane().setDefaultButton(betButton);
+        //betButton.requestFocus();
         sliderValue = 0;
+        guessButton = new JButton();
+        guessButton.setText("Bet");
 
         ChangeListener changeListener = new ChangeListener() {
             public void stateChanged(ChangeEvent changeEvent) {
@@ -83,17 +87,29 @@ public class GUI extends JFrame {
                 if (!theSlider.getValueIsAdjusting()) {
                     sliderValue = new Integer(theSlider.getValue());
                     GameTurn.turn.setMyBet(sliderValue);
-                    betButton.setText("Bet " + sliderValue + " points");
+                    thrown[2] = sliderValue;
+                    guessButton.setText("Bet " + sliderValue + " points");
                 }
             }
         };
 
         mySlider.addChangeListener(changeListener);
 
+        Bet bet = new Bet();
+        thrown[2] = sliderValue;
+        String[] choices = bet.pickValues(thrown);
+
+        final JComboBox list = new JComboBox(choices);
+        JLabel messageText = new JLabel();
+        messageText.setText("What numbers were thrown?");
+
+        guessPanel.add(messageText);
+        guessPanel.add(list);
         sliderPanel.add(mySlider);
         sliderPanel.validate();
         sliderPanel.repaint();
 
+        /*
         betButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Bet bet = new Bet();
@@ -101,7 +117,21 @@ public class GUI extends JFrame {
                 bet.pickValues(thrown);
             }
         });
-        buttonPanel.add(betButton);
+        */
+
+        //buttonPanel.add(betButton);
+        guessButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //Execute when button is pressed
+                Bet bet = new Bet();
+                bet.makeGuess(String.valueOf(list.getSelectedItem()));
+                GameTurn.turn.turnOnePlayer();
+            }
+        });
+        rootPanel.getRootPane().setDefaultButton(guessButton);
+        guessButton.requestFocus();
+
+        buttonPanel.add(guessButton);
         buttonPanel.validate();
         buttonPanel.repaint();
 
@@ -110,6 +140,7 @@ public class GUI extends JFrame {
     }
 
     // Setting UI for making guess.
+    /*
     public void setGuess(String[] choices) {
         sliderPanel.removeAll();
         buttonPanel.removeAll();
@@ -141,11 +172,13 @@ public class GUI extends JFrame {
         buttonPanel.validate();
         buttonPanel.repaint();
     }
+    */
 
     // Called after each turn. Result and basic stats are shown.
     public void setTurnMessage(String[] message) {
         playerLabel.setText(message[0]);
         sliderPanel.removeAll();
+        guessPanel.removeAll();
 
         JLabel messageText = new JLabel();
         messageText.setText("<html><body>" + message[1] + "<br>" + message[2] + "</body></html>");

@@ -10,31 +10,37 @@ public class GameTurn {
         int[] playersAlive = GameEngine.playersAlive();
         if (playersAlive[0] > 0) {
 
-            GameEngine gEngine = new GameEngine();
-            gEngine.activePlayer = gEngine.Players.get(activeP);
-            Player player = gEngine.activePlayer;
-
-            activeP += 1;
-            if (activeP >= GameEngine.playerCount) {
-                activeP = 0;
-            }
-
             Die dice = new Die();
             thrown = dice.main();
+            activeP = 0;
+            turnOnePlayer();
 
-            GameMain.userInterface.returnPlayer();
-            GameMain.userInterface.setMyBet(thrown);
-            System.out.println("Player " + (player.getI()+1) + " is playing!");
         } else {
              GameEngine.theEnd(playersAlive[1]);
         }
+    }
+
+    public void turnOnePlayer() {
+        if (activeP >= GameEngine.playerCount) {
+            activeP = 0;
+            newTurn();
+        }
+
+        GameEngine gEngine = new GameEngine();
+        System.out.println("settings player to " + activeP);
+        gEngine.activePlayer = gEngine.Players.get(activeP);
+        Player player = gEngine.activePlayer;
+        activeP += 1;
+
+        GameMain.userInterface.returnPlayer();
+        GameMain.userInterface.setMyBet(thrown);
+        System.out.println("Player " + (player.getI()+1) + " is playing!");
     }
 
     // Setting final messages, that are called every turn.
     public void getBet(int[] turnData) {
         Player player = GameEngine.activePlayer;
 
-        // Calling class Bet and setting parameter which is thrown sum.
         player.changeBank(turnData[5]-turnData[4]);
         String winLose, loseMessage = "", fMessage = "";
         if(turnData[5]-turnData[4] > 0) {
@@ -44,10 +50,10 @@ public class GameTurn {
         else if (turnData[5]-turnData[4] < 0){
             winLose = "You lost " + turnData[4] + " points and your score is now ";
             loseMessage = "Better luck next time!";
-            fMessage = "You guessed " + turnData[2] + " and " + turnData[3] + " but the right answer is:";
+            fMessage = "You guessed " + turnData[2] + " and " + turnData[3] + " and the right answer is:";
         } else {
             winLose = "You didn't bet anything! Your score is now ";
-            fMessage = "You guessed " + turnData[2] + " and " + turnData[3] + " but the right answer is:";
+            fMessage = "You guessed " + turnData[2] + " and " + turnData[3] + " and the right answer is:";
         }
 
         String[] myMessage = new String[5];

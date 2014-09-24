@@ -10,7 +10,7 @@ public class Bet {
     public String answer = "";
 
     // Getting all possible choices, and sending them to interface.
-    public void pickValues(int[] thrown) {
+    public String[] pickValues(int[] thrown) {
         Player player = GameEngine.activePlayer;
         myBet = thrown[2];
         player.addRolls(thrown);
@@ -28,8 +28,9 @@ public class Bet {
         choices = list.toArray(new String[list.size()]);
 
         GameTurn.turn.setThrown(thrown);
-        GameMain.userInterface.setGuess(choices);
+        //GameMain.userInterface.setGuess(choices);
 
+        return choices;
     }
 
     // Evaluating the choice, calculating reward / loss
@@ -77,8 +78,10 @@ public class Bet {
 
         player.addReward(myBet);
 
+        /*
         GameTurn turn = new GameTurn();
         turn.getBet(turnData);
+        */
     }
     
     // 1. and 2.: Dice face values, 3.and 4. Guesses, 5. Amount we have bet, 6. is reward.
