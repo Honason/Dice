@@ -28,6 +28,8 @@ public class GameTurn {
 
     public void turnOnePlayer() {
         GameEngine gEngine = new GameEngine();
+        winners.clear();
+        losers.clear();
         if (activeP >= GameEngine.playerCount) {
             int[] results = new int[GameEngine.playerCount];
             int winSum = 0;
