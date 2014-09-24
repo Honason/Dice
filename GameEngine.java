@@ -34,7 +34,7 @@ public class GameEngine {
         GameTurn.turn.newTurn();
     }
 
-    public void theEnd() {
+    public static void theEnd(int winnerIndex) {
         for (int i = 0; i < playerCount ; i++) {
             Player player = Players.get(i);
             int[] games = player.getWinLoses();
@@ -53,7 +53,7 @@ public class GameEngine {
         }
     }
 
-    public boolean playersAlive() {
+    public static boolean playersAlive() {
         int count = 0;
         for (int i = 0; i < Players.size() ; i++) {
             if(Players.get(i).getBank() > 0) count++;
